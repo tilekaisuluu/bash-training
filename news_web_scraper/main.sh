@@ -27,3 +27,18 @@ rmdir tests
 rmdir output 
 rm README.md
 fi 
+
+
+
+
+if [ "$1" = "--url"  ]; then
+
+url=$2
+
+newDir=$(echo "$url" | awk -F/ '{print $3}')
+
+mkdir -p $newDir
+wget -qO- $url | grep -Eo '(http|https)://[\da-z./?A-Z0-9\D=_-]*' | uniq >> $newDir/urls.txt
+
+fi
+
